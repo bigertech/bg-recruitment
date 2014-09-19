@@ -177,6 +177,22 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
     },
 
     /**
+     * 从id中查找
+     * @param  {Array}   ids ID集合
+     * @return {Promise}
+     */
+    findIn: function(ids) {
+        if (_.isEmpty(ids) || !_.isArray(ids)) {
+            return when.resolve([]);
+        }
+
+        var posts = null;
+        return this.query(function(qb) {
+            qb.where('id', 'IN', ids);
+        }).fetchAll();
+    },
+
+    /**
      * 按data条件得到指定的数据
      * @param  {Object} data    条件数据
      * @param  {Object} options options数据
