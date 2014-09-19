@@ -1,6 +1,8 @@
 
-var baseBookshelf = require('./base');
+var _ = require('lodash');
+var when = require('when');
 
+var baseBookshelf = require('./base');
 var Type = require('./type').Type;
 
 var Job = baseBookshelf.Model.extend({
@@ -11,11 +13,52 @@ var Job = baseBookshelf.Model.extend({
     }
 }, {
     findAll: function(options) {
-        return baseBookshelf.Model.findAll.call(this, options);
+        var jobs = null;
+
+        return baseBookshelf.Model.findAll.call(this, options).then(function(result) {
+            jobs = result.toJSON();
+
+            var id = [];
+            jobs.forEach(function(job, index) {
+                id.push(job.id);
+            });
+
+            return Type.findIn(id);
+        }).then(function(result) {
+            var types = result.toJSON();
+
+            types.forEach(function(type, i) {
+                jobs.forEach(function(job, j) {
+                    if (job.type_id == type.id) {
+                        jobs[j].type = type.name;
+                    }
+                });
+            });
+
+            return jobs;
+        });
     },
 
     findOne: function(data, options) {
-        return baseBookshelf.Model.findOne.call(this, data, options);
+        var job = null;
+
+        return baseBookshelf.Model.findOne.call(this, data, options).then(function(result) {
+            if (_.isEmpty(result)) {
+                return result;
+            }
+
+            job = result.toJSON();
+            return new Type({id: job.type_id }).fetch();
+        }).then(function(result) {
+            if (_.isEmpty(result)) {
+                return job;
+            }
+
+            var type = result.toJSON();
+            job.type = type.name;
+
+            return job;
+        });
     },
 
     add: function(data, options) {
