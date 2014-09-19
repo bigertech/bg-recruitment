@@ -51,13 +51,10 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
 
     // 创建数据时触发
     creating: function(newObj, attr, options) {
-        console.log('creating...');
     },
 
     // 保存数据时触发
     saving: function (newObj, attr, options) {
-        console.log('saving...');
-
         // 移除所有不属于该模型中的属性
         this.attributes = this.pick(this.permittedAttributes());
         // 保存更新之前的属性
@@ -67,8 +64,6 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
 
     // 保存到数据库之前格式化数据
     format: function (attrs) {
-        console.log('format...');
-
         var isSve = this._isSave || false;
         this._isSave = false;
 
@@ -81,8 +76,6 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
 
     // 从数据库中取出数据时，对数据进行格式化
     parse: function (attrs) {
-        console.log('parse...');
-
         return attrs;
     },
 

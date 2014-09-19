@@ -7,7 +7,8 @@ var models = null;
 
 models = {
     Base: require('./base'),
-    Post: require('./post').Post
+    Job: require('./job').Job,
+    Type: require('./type').Type
 };
 
 module.exports = models;

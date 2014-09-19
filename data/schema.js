@@ -61,7 +61,7 @@ var db = {
         },
         published_at: {
             type: 'integer',
-            nullable: false,
+            nullable: true,
             autocompletions: {
                 'timestamp': {
                     autocompleteOn: 'add'

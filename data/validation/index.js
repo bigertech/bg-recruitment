@@ -28,7 +28,7 @@ validateSchema = function(tableName, model) {
         // 检查字段是否可以为空
         if (model.hasOwnProperty(columnKey) && field.hasOwnProperty('nullable')
                 && field.nullable !== true) {
-            if (validator.isNull(model[columnKey]) || validator.empty(model[columnKey])) {
+            if (validator.isNull(model[columnKey]) || validator.isEmpty(model[columnKey])) {
                 message = 'Value in [' + tableName + '.' + columnKey + '] cannot be blank.';
                 validationErrors.push(new errors.ValidationError(message, tableName + '.' + columnKey));
             }
