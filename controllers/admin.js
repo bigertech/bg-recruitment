@@ -3,12 +3,16 @@
  * Main controller for frontend
  */
 
+var api = require('../api');
+
 var adminControllers;
 
 adminControllers = {
 
     index: function(req, res, next) {
-        res.render('admin/index');
+        api.jobs.findAll().then(function(jobs) {
+            res.render('admin/index', { jobs: jobs });
+        });
     },
 
     addJob: function(req, res, next) {

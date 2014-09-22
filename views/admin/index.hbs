@@ -64,7 +64,6 @@
       <tr>
         <th>#</th>
         <th>职位名称</th>
-        <th>职位描述</th>
         <th>发布时间</th>
         <th>招聘人数</th>
         <th>职位类别</th>
@@ -73,36 +72,17 @@
       </tr>
       </thead>
       <tbody>
+      {{#foreach jobs}}
       <tr>
-        <td>1</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>20140130</td>
-        <td>1</td>
-        <td>开发</td>
-        <td>珠海</td>
-        <td><a href="/admin/edit_job/">编辑</a>|<a href="">删除</a></td>
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{published_at}}</td>
+        <td>{{number}}</td>
+        <td>{{type}}</td>
+        <td>{{address}}</td>
+        <td><a href="/admin/edit_job/{{id}}">编辑</a>|<a href="">删除</a></td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>1</td>
-        <td>开发</td>
-        <td>珠海</td>
-        <td><a href="edit_job.html">编辑</a>|<a href="">删除</a></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>1</td>
-        <td>开发</td>
-        <td>珠海</td>
-        <td><a href="edit_job.html">编辑</a>|<a href="">删除</a></td>
-      </tr>
+      {{/foreach}}
       </tbody>
     </table>
   </div>
