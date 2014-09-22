@@ -22,7 +22,9 @@ adminRoutes = function (app) {
 
     app.post('/admin/create_type', admin.createType);
 
-    app.get('/admin/edit_type', admin.editType);
+    app.get('/admin/edit_type/:id', admin.editType);
+
+    app.post('/admin/update_type', admin.updateType);
 };
 
 module.exports = adminRoutes;

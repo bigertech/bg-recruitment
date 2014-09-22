@@ -15,7 +15,9 @@ var Type = baseBookshelf.Model.extend({
     },
 
     findOne: function(data, options) {
-        return baseBookshelf.Model.findOne.call(this, data, options);
+        return baseBookshelf.Model.findOne.call(this, data, options).then(function(result) {
+            return result.toJSON();
+        });
     },
 
     add: function(data, options) {

@@ -86,7 +86,24 @@ adminControllers = {
     },
 
     editType: function(req, res, next) {
-        res.render('admin/edit_type');
+        var id = req.params.id;
+
+        api.types.findById(id).then(function(type) {
+            console.log(type);
+            res.render('admin/edit_type', { type: type });
+        }).otherwise(function(err) {
+            res.jsonp({err: 'Page not fount.'});
+        });
+    },
+
+    updateType: function(req, res, next) {
+        var type = req.body;
+
+        api.types.updateById(type, type.id).then(function(type) {
+            res.jsonp({ status: true });
+        }).otherwise(function(err) {
+            res.jsonp({ status: false });
+        });
     }
 };
 
