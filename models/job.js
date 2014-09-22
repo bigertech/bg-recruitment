@@ -20,7 +20,7 @@ var Job = baseBookshelf.Model.extend({
 
             var id = [];
             jobs.forEach(function(job, index) {
-                id.push(job.id);
+                id.push(job.type_id);
             });
 
             return Type.findIn(id);
