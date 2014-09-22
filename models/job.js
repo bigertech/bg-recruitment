@@ -25,15 +25,17 @@ var Job = baseBookshelf.Model.extend({
 
             return Type.findIn(id);
         }).then(function(result) {
-            var types = result.toJSON();
+            if (!_.isEmpty(result)) {
+                var types = result.toJSON();
 
-            types.forEach(function(type, i) {
-                jobs.forEach(function(job, j) {
-                    if (job.type_id == type.id) {
-                        jobs[j].type = type.name;
-                    }
+                types.forEach(function(type, i) {
+                    jobs.forEach(function(job, j) {
+                        if (job.type_id == type.id) {
+                            jobs[j].type = type.name;
+                        }
+                    });
                 });
-            });
+            }
 
             return jobs;
         });

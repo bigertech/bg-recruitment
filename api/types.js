@@ -47,6 +47,12 @@ var types = {
             return when.reject(new errors.NotFoundError('Type not found.'));
         });
     },
+
+    deleteById: function(id) {
+        return models.Type.destroy({id: id}).then(function() {
+            return models.Job.where({type_id: id}).destroy();
+        });
+    }
 };
 
 module.exports = types;

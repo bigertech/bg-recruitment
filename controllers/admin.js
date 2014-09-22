@@ -104,7 +104,18 @@ adminControllers = {
         }).otherwise(function(err) {
             res.jsonp({ status: false });
         });
-    }
+    },
+
+    deleteType: function(req, res, next) {
+        var id = req.params.id;
+
+        api.types.deleteById(id).then(function() {
+            res.jsonp({ status: true });
+        }).otherwise(function(err) {
+            console.log(err);
+            res.jsonp({ status: false });
+        });
+    },
 };
 
 module.exports = adminControllers;
