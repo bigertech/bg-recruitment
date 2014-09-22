@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>笔戈招聘后台</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="max-age=7200"/>
+  <link rel="stylesheet" href="{{asset '/stylesheets/bootstrap.min.css'}}">
+  <link href="{{asset '/stylesheets/bootstrap-responsive.min.css'}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset '/stylesheets/style.css'}}">
+  <style>
+    input {
+      width: inherit;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/admin/">笔戈招聘</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/admin/">职位管理</a></li>
+          <li class="active"><a href="#">类别管理</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <h1></h1>
+
+  <div class="hero-unit">
+
+    <form id="searchForm" class="searchForm">
+      <label>类别列表</label>
+    </form>
+    <a href="/admin/add_type/" class="btn btn-primary add-job">添加类别</a>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>类型名称</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td>运营</td>
+        <td><a href="/admin/edit_type/">编辑</a>|<a href="">删除</a></td>
+      </tr
+      <tr>
+        <td>2</td>
+        <td>开发</td>
+        <td><a href="/admin/edit_type/">编辑</a>|<a href="">删除</a></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>设计</td>
+        <td><a href="/admin/edit_type/">编辑</a>|<a href="">删除</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
+<script src="{{asset 'javascripts/libs/bootstrap.min.js'}}"></script>
+
+</body>
+</html>
