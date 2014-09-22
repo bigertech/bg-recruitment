@@ -111,6 +111,14 @@ coreHelpers.foreach = function (context, options) {
     return ret;
 };
 
+coreHelpers.ifCond = function(v1, v2, options) {
+    if(v1 == v2) {
+        return options.fn(this);
+    }
+
+    return options.inverse(this);
+};
+
 // Register a handlebars helper for themes
 function registerThemeHelper(name, fn) {
     hbs.registerHelper(name, fn);
@@ -121,7 +129,7 @@ function registerAdminHelper(name, fn) {
     coreHelpers.adminHbs.registerHelper(name, fn);
 }
 
-registerHelpers = function (adminHbs, assetHash) {
+var registerHelpers = function (adminHbs, assetHash) {
     // Expose hbs instance for admin
     coreHelpers.adminHbs = adminHbs;
 
@@ -132,6 +140,8 @@ registerHelpers = function (adminHbs, assetHash) {
     registerThemeHelper('asset', coreHelpers.asset);
 
     registerThemeHelper('foreach', coreHelpers.foreach);
+
+    registerThemeHelper('ifCond', coreHelpers.ifCond);
 
     // Register Admin helpers
     // registerAdminHelper('asset', coreHelpers.asset);

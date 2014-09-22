@@ -10,7 +10,9 @@ adminRoutes = function (app) {
 
     app.post('/admin/create_job', admin.createJob);
 
-    app.get('/admin/edit_job', admin.editJob);
+    app.get('/admin/edit_job/:id', admin.editJob);
+
+    app.post('/admin/update_job', admin.updateJob);
 
     app.get('/admin/type', admin.type);
 

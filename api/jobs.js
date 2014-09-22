@@ -22,15 +22,15 @@ var jobs = {
         });
     },
 
-    // findById: function(id) {
-    //     return models.Post.findOne({id: id}).then(function(post) {
-    //         if (post) {
-    //             return post.toJSON();
-    //         }
+    findById: function(id) {
+        return models.Job.findOne({id: id}).then(function(job) {
+            if (job) {
+                return job;
+            }
 
-    //         return when.reject(new errors.NotFoundError('Post not found.'));
-    //     });
-    // },
+            return when.reject(new errors.NotFoundError('Job not found.'));
+        });
+    },
 
     add: function(data, options) {
         return models.Job.add(data, options).then(function(job) {
@@ -42,15 +42,15 @@ var jobs = {
         });
     },
 
-    // editById: function(data, id) {
-    //     return models.Post.edit(data, {id: id}).then(function(post) {
-    //         if (post) {
-    //             return post.toJSON();
-    //         }
+    updateById: function(data, id) {
+        return models.Job.edit(data, {id: id}).then(function(job) {
+            if (job) {
+                return job.toJSON();
+            }
 
-    //         return when.reject(new errors.NotFoundError('Post not found.'));
-    //     });
-    // },
+            return when.reject(new errors.NotFoundError('Job not found.'));
+        });
+    },
 
     // destroyById: function(id) {
     //     return models.Post.destroy({id: id});

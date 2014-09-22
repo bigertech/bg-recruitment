@@ -199,7 +199,8 @@
             number: number || 0,
             type_id: type,
             address: address,
-            description: description
+            description: description,
+            edu: edu
         };
 
         $.post('/admin/create_job/', job, function(data) {
@@ -211,6 +212,8 @@
                 alert('「添加职位」失败！');
             }
         });
+
+        return false;
     });
   });
 </script>
