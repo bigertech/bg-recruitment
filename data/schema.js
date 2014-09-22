@@ -35,6 +35,11 @@ var db = {
                 }
             }
         },
+        address: {
+            type: 'string',
+            maxlength: 255,
+            nullable: true
+        },
         description: {
             type: 'text',
             maxlength: 16777215,
