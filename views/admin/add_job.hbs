@@ -15,19 +15,32 @@
     <form class="horizontal-form" role="form">
       <div class="form-group">
         <label class="form-label">职位名称</label>
-        <input type="text" class="form-control" id="inputEmail3" required>
+        <input type="text" class="form-control" id="name" required>
       </div>
       <div class="form-group">
         <label class="form-label">招聘人数</label>
-        <input type="number" class="form-control" id="num" required>
+        <input type="number" class="form-control" id="number" required>
       </div>
       <div class="form-group">
         <label class="form-label">职位类别</label>
 
         <div class="btn-group">
-          <select id="name" class="form-control">
-            <option value=1>开发</option>
-            <option value=2>设计</option>
+          <select id="type" class="form-control">
+              {{#foreach types}}
+              <option value="{{id}}">{{name}}</option>
+              {{/foreach}}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">学历要求</label>
+        <div class="btn-group">
+          <select id="edu" class="form-control">
+            <option value='不限'>不限</option>
+            <option value='专科及以上'>专科及以上</option>
+            <option value='本科及以上'>本科及以上</option>
+            <option value='硕士及以上'>硕士及以上</option>
+            <option value='博士及以上'>博士及以上</option>
           </select>
         </div>
       </div>
@@ -35,8 +48,8 @@
         <label class="form-label">工作地点</label>
         <div class="btn-group">
           <select id="address" class="form-control">
-            <option value=1>珠海</option>
-            <option value=2>深圳</option>
+            <option value='珠海'>珠海</option>
+            <option value='深圳'>深圳</option>
           </select>
         </div>
       </div>
@@ -99,9 +112,8 @@
       <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
     </div>
     <div id="editor">
-      输入内容&hellip;
     </div>
-    <button type="submit" class="btn btn-primary form-btn-bar">确定</button>
+    <button id="create-job" class="btn btn-primary form-btn-bar">确定</button>
     <a href="/admin/" class="btn btn-primary form-btn-bar">返回</a>
     </form>
   </div>
@@ -156,6 +168,50 @@
     };
     initToolbarBootstrapBindings();
     $('#editor').wysiwyg({ fileUploadError: showErrorAlert});
+
+    $('#create-job').click(function() {
+        var name = $('#name').val().trim();
+        var number = $('#number').val().trim();
+        var type = $('#type').val().trim();
+        var edu = $('#edu').val().trim();
+        var address = $('#address').val().trim();
+        var description = $('#editor').html();
+
+        if (name == '') {
+            alert('「职位名称」不能为空！');
+            return false;
+        } else if (number < 0) {
+            alert('「职位数量」不能小于0！');
+            return false;
+        } else if (type == '') {
+            alert('「职位类型」不能为空！');
+            return false;
+        } else if (edu == '') {
+            alert('「学历要求」不能为空！');
+            return false;
+        } else if (address == '') {
+            alert('「职位地址」不能为空！');
+            return false;
+        }
+
+        var job = {
+            name: name,
+            number: number || 0,
+            type_id: type,
+            address: address,
+            description: description
+        };
+
+        $.post('/admin/create_job/', job, function(data) {
+            if (data.status) {
+                alert('「添加职位」成功！');
+
+                window.location.href = '/admin/';
+            } else {
+                alert('「添加职位」失败！');
+            }
+        });
+    });
   });
 </script>
 </body>

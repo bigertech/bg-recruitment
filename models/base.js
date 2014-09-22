@@ -124,54 +124,13 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
         return this.updatedAttributes()[attr];
     }
 }, {
-
-    /**
-     * 返回一个可以被每个方法都使用的 options 键值对的key
-     * @return {Array} 允许使用的options键值
-     */
-    permittedOptions: function () {
-        return ['context', 'include', 'transacting'];
-    },
-
-    /**
-     * 过滤不在数据表中出现的属性
-     * @param  {Object} data 数据对象
-     * @return {Object} 安全的数据对象
-     */
-    filterData: function (data) {
-        var permittedAttributes = this.prototype.permittedAttributes();
-        var filteredData = _.pick(data, permittedAttributes);
-
-        return filteredData;
-    },
-
-    /**
-     * 过滤不可使用的options键值
-     * @param  {Object} options    options对象
-     * @param  {String} methodName 方法名称
-     * @return {Object}            有效的options
-     */
-    filterOptions: function (options, methodName) {
-        var permittedOptions = this.permittedOptions(methodName);
-        var filteredOptions = _.pick(options, permittedOptions);
-
-        return filteredOptions;
-    },
-
     /**
      * 得到所有的数据
      * @param  {Object} options options对象
      * @return {Object}         数据集合
      */
     findAll:  function (options) {
-        options = this.filterOptions(options, 'findAll');
         return baseBookshelf.Collection.forge([], {model: this}).fetch(options).then(function (result) {
-            if (options.include) {
-                _.each(result.models, function (item) {
-                    item.include = options.include;
-                });
-            }
-
             return result;
         });
     },
@@ -199,10 +158,7 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
      * @return {Object}         数据对象
      */
     findOne: function (data, options) {
-        data = this.filterData(data);
-        options = this.filterOptions(options, 'findOne');
-
-        return this.forge(data, {include: options.include}).fetch(options);
+        return this.forge(data).fetch(options);
     },
 
     /**
@@ -213,8 +169,6 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
      */
     edit: function (data, options) {
         var id = options.id;
-        data = this.filterData(data);
-        options = this.filterOptions(options, 'edit');
 
         return this.forge({id: id}).fetch(options).then(function (object) {
             if (object) {
@@ -232,15 +186,7 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
      * @return {Object}         数据对象
      */
     add: function (data, options) {
-        data = this.filterData(data);
-        options = this.filterOptions(options, 'add');
         var instance = this.forge(data);
-
-        // 当数据为导入时，可能出现时间抽一样的问题，所以可以设置时间戳为false
-        if (options.importing) {
-            instance.hasTimestamps = false;
-        }
-
         return instance.save(null, options);
     },
 
@@ -251,7 +197,6 @@ baseBookshelf.Model = baseBookshelf.Model.extend({
      */
     destroy: function (options) {
         var id = options.id;
-        options = this.filterOptions(options, 'destroy');
         return this.forge({id: id}).destroy(options);
     }
 });

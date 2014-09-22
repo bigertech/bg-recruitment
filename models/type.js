@@ -9,7 +9,9 @@ var Type = baseBookshelf.Model.extend({
     }
 }, {
     findAll: function(options) {
-        return baseBookshelf.Model.findAll.call(this, options);
+        return baseBookshelf.Model.findAll.call(this, options).then(function(result) {
+            return result.toJSON();
+        });
     },
 
     findOne: function(data, options) {

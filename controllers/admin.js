@@ -16,7 +16,19 @@ adminControllers = {
     },
 
     addJob: function(req, res, next) {
-        res.render('admin/add_job');
+        api.types.findAll().then(function(types) {
+            res.render('admin/add_job', { types: types });
+        });
+    },
+
+    createJob: function(req, res, next) {
+        var job = req.body;
+
+        api.jobs.add(job).then(function(job) {
+            res.jsonp({ status: true });
+        }).otherwise(function(err) {
+            res.jsonp({ status: false });
+        });
     },
 
     editJob: function(req, res, next) {

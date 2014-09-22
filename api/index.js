@@ -4,7 +4,9 @@
  */
 
 var jobs = require('./jobs');
+var types = require('./types');
 
 module.exports = {
-    jobs: jobs
+    jobs: jobs,
+    types: types
 };

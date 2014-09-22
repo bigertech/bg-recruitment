@@ -20,7 +20,7 @@ var jobs = {
 
             return jobs;
         });
-    }
+    },
 
     // findById: function(id) {
     //     return models.Post.findOne({id: id}).then(function(post) {
@@ -32,15 +32,15 @@ var jobs = {
     //     });
     // },
 
-    // add: function(data, options) {
-    //     return models.Post.add(data, options).then(function(post) {
-    //         if (post) {
-    //             return post.toJSON();
-    //         }
+    add: function(data, options) {
+        return models.Job.add(data, options).then(function(job) {
+            if (job) {
+                return job;
+            }
 
-    //         return when.reject('Failed to add a post.');
-    //     });
-    // },
+            return when.reject('Failed to add a job.');
+        });
+    },
 
     // editById: function(data, id) {
     //     return models.Post.edit(data, {id: id}).then(function(post) {
