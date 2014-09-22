@@ -15,12 +15,42 @@
     <form class="horizontal-form" role="form">
       <div class="form-group">
         <label class="form-label">类别名称</label>
-        <input type="text" class="form-control" id="inputEmail3" required>
+        <input type="text" class="form-control" id="name" required>
       </div>
-      <button type="submit" class="btn btn-primary form-btn-bar">确定</button>
+      <button id="create-type" class="btn btn-primary form-btn-bar">确定</button>
       <a href="/admin/type/" class="btn btn-primary form-btn-bar">返回</a>
     </form>
   </div>
 </div>
+
+<script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
+<script>
+  $(function () {
+    $('#create-type').click(function() {
+        var name = $('#name').val().trim();
+
+        if (name == '') {
+            alert('「类别名称」不能为空！');
+            return false;
+        }
+
+        var type = {
+            name: name,
+        };
+
+        $.post('/admin/create_type/', type, function(data) {
+            if (data.status) {
+                alert('「添加类别」成功！');
+                window.location.href = '/admin/type';
+            } else {
+                alert('「添加类别」失败！');
+            }
+        });
+
+        return false;
+    });
+  });
+</script>
+
 </body>
 </html>

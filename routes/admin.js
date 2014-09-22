@@ -20,6 +20,8 @@ adminRoutes = function (app) {
 
     app.get('/admin/add_type', admin.addType);
 
+    app.post('/admin/create_type', admin.createType);
+
     app.get('/admin/edit_type', admin.editType);
 };
 

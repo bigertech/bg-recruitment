@@ -56,21 +56,13 @@
       </tr>
       </thead>
       <tbody>
+      {{#foreach types}}
       <tr>
-        <td>1</td>
-        <td>运营</td>
-        <td><a href="/admin/edit_type/">编辑</a>|<a href="">删除</a></td>
-      </tr
-      <tr>
-        <td>2</td>
-        <td>开发</td>
-        <td><a href="/admin/edit_type/">编辑</a>|<a href="">删除</a></td>
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td><a href="/admin/edit_type/{{id}}">编辑</a>|<a href="">删除</a></td>
       </tr>
-      <tr>
-        <td>3</td>
-        <td>设计</td>
-        <td><a href="/admin/edit_type/">编辑</a>|<a href="">删除</a></td>
-      </tr>
+      {{/foreach}}
       </tbody>
     </table>
   </div>

@@ -66,15 +66,27 @@ adminControllers = {
     },
 
     type: function(req, res, next) {
-        res.render('admin/type');
+        api.types.findAll().then(function(types) {
+            res.render('admin/type', { types: types });
+        });
     },
 
     addType: function(req, res, next) {
         res.render('admin/add_type');
     },
 
+    createType: function(req, res, next) {
+        var type = req.body;
+
+        api.types.add(type).then(function(type) {
+            res.jsonp({ status: true });
+        }).otherwise(function(err) {
+            res.jsonp({ status: false });
+        });
+    },
+
     editType: function(req, res, next) {
-        res.render('admin/edit)type');
+        res.render('admin/edit_type');
     }
 };
 
