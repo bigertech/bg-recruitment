@@ -14,6 +14,8 @@ adminRoutes = function (app) {
 
     app.post('/admin/update_job', admin.updateJob);
 
+    app.get('/admin/delete_job/:id', admin.deleteJob);
+
     app.get('/admin/type', admin.type);
 
     app.get('/admin/add_type', admin.addType);

@@ -82,7 +82,7 @@
         <td>{{type}}</td>
         <td>{{edu}}</td>
         <td>{{address}}</td>
-        <td><a href="/admin/edit_job/{{id}}">编辑</a>|<a href="">删除</a></td>
+        <td><a href="/admin/edit_job/{{id}}">编辑</a>|<a href="#" url="/admin/delete_job/{{id}}" class="del">删除</a></td>
       </tr>
       {{/foreach}}
       </tbody>
@@ -91,6 +91,28 @@
 </div>
 <script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
 <script src="{{asset 'javascripts/libs/bootstrap.min.js'}}"></script>
+
+<script>
+
+$(function() {
+    $('.del').click(function() {
+        if (!confirm('是否确认删除改职位？')) {
+            return false;
+        }
+
+        var url = $(this).attr('url');
+        $.get(url, function(data) {
+          if (data.status) {
+              alert('「删除职位」成功！');
+                  window.location.href = '/admin/';
+              } else {
+                  alert('「删除职位」失败！');
+              }
+        });
+    });
+});
+
+</script>
 
 </body>
 </html>

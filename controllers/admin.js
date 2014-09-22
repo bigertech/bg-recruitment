@@ -51,8 +51,17 @@ adminControllers = {
         api.jobs.updateById(job, job.id).then(function(job) {
             res.jsonp({ status: true });
         }).otherwise(function(err) {
-            console.log(err);
-            res.jsonp({ status: err });
+            res.jsonp({ status: false });
+        });
+    },
+
+    deleteJob: function(req, res, next) {
+        var id = req.params.id;
+
+        api.jobs.deleteById(id).then(function() {
+            res.jsonp({ status: true });
+        }).otherwise(function() {
+            res.jsonp({ status: false });
         });
     },
 

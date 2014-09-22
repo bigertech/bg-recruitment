@@ -52,9 +52,9 @@ var jobs = {
         });
     },
 
-    // destroyById: function(id) {
-    //     return models.Post.destroy({id: id});
-    // }
+    deleteById: function(id) {
+        return models.Job.destroy({id: id});
+    }
 };
 
 module.exports = jobs;
