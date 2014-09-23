@@ -1,15 +1,159 @@
-{{!< default}}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{{#contentFor 'stylesheets'}}
-<link rel="stylesheet" href="{{asset '/stylesheets/main.css'}}" />
-{{/contentFor}}
+  <title>{{meta_title}}</title>
+  <meta name="description" content="{{meta_description}}" />
+  <meta name="keywords" content="{{meta_title}}">
+  <link rel="stylesheet" href="{{asset 'stylesheets/bigertech-jobs.min.css'}}">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-<h1>Body Here - {{title}}</h1>
+<div class="jobs-header">
+  <img class="logo center-block" src="{{asset 'images/bigertech.png'}}" alt="bigertech">
+  <a class="jobs-all center-block" href="#jobs-content">加  入  笔  戈</a>
+</div>
 
-{{#contentFor 'javascripts'}}
-<script src="{{asset '/javascripts/main.js'}}"></script>
-{{/contentFor}}
+<div id="bgCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+    <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+  </ol>
 
-{{#if prod_mode}}
-{{> 'google-analytics'}}
-{{/if}}
+  <div class="carousel-inner">
+    <div class="item">
+      <div class="quote-container">
+        <img class="quote-avater left" src="{{asset 'images/linan.jpg'}}" alt="First slide">
+        <p class="quote-description left">"笔戈科技提供了一个产生，分享和传播知识的工具，我们鼓励每个人都来分享知识，将每个人的知识都聚集起来，并为人人所用。"</p>
+        <h3 class="quote-name clearfix"> 李楠 <span class="quote-name-title">魅族高级总监</span></h3>
+      </div>
+    </div>
+    <div class="item active">
+      <div class="quote-container">
+        <img class="quote-avater left" src="{{asset 'images/liuxing.jpg'}}" alt="First slide">
+        <p class="quote-description left">"笔戈科技为每个设计师配备了27存的 iMac, 和个人定制鼠标及数位板，以及人体工学座椅，还提供设计过程中需要用到的画笔等各种绘画用品。"</p>
+        <h3 class="quote-name clearfix"> 刘兴 <span class="quote-name-title">一名放荡不羁的程序员</span></h3>
+      </div>
+    </div>
+    <div class="item">
+      <div class="quote-container">
+        <img class="quote-avater left" src="{{asset 'images/jason.jpg'}}" alt="First slide">
+        <p class="quote-description left">"笔戈科技是一个年轻、活泼、崇尚黑客文化、鼓励个人发挥创造力、尊重人、沟通畅快、热爱自由的团队。"</p>
+        <h3 class="quote-name clearfix"> Jason <span class="quote-name-title">居然还能活着的产经</span></h3>
+      </div>
+    </div>
+
+  </div>
+  <a class="carousel-control-left" href="#bgCarousel" role="button" data-slide="prev"><div class="arrow-left"></div></a>
+  <a class="carousel-control-right" href="#bgCarousel" role="button" data-slide="next"><div class="arrow-right"></div></a>
+</div>
+
+<div id="jobs-content" class="jobs-content">
+  <div class="jobs-category center-block">
+    <h3 class="jobs-category-title">开发</h3>
+    <ul class="jobs-category-list center-block">
+      <li id="job-btn" class="job-detail">前端工程师</li>
+      <li id="job-btn" class="job-detail">NodeJS 工程师</li>
+      <li id="job-btn" class="job-detail">产品设计师</li>
+      <li id="job-btn" class="job-detail">产品经理</li>
+      <li id="job-btn" class="job-detail">交互设计师</li>
+    </ul>
+
+    <h3 class="jobs-category-title">开发</h3>
+    <ul class="jobs-category-list center-block">
+      <li id="job-btn" class="job-detail">前端工程师</li>
+      <li id="job-btn" class="job-detail">NodeJS 工程师</li>
+      <li id="job-btn" class="job-detail">产品设计师</li>
+      <li id="job-btn" class="job-detail">产品经理</li>
+      <li id="job-btn" class="job-detail">交互设计师</li>
+    </ul>
+
+    <h3 class="jobs-category-title">开发</h3>
+    <ul class="jobs-category-list center-block">
+      <li id="job-btn" class="job-detail">前端工程师</li>
+      <li id="job-btn" class="job-detail">NodeJS 工程师</li>
+      <li id="job-btn" class="job-detail">产品设计师</li>
+      <li id="job-btn" class="job-detail">产品经理</li>
+      <li id="job-btn" class="job-detail">交互设计师</li>
+    </ul>
+
+    <h3 class="jobs-category-title">开发</h3>
+    <ul class="jobs-category-list center-block">
+      <li id="job-btn" class="job-detail">前端工程师</li>
+      <li id="job-btn" class="job-detail">NodeJS 工程师</li>
+      <li id="job-btn" class="job-detail">产品设计师</li>
+      <li id="job-btn" class="job-detail">产品经理</li>
+      <li id="job-btn" class="job-detail">交互设计师</li>
+    </ul>
+
+    <h3 class="jobs-category-title">开发</h3>
+    <ul class="jobs-category-list center-block">
+      <li id="job-btn" class="job-detail">前端工程师</li>
+      <li id="job-btn" class="job-detail">NodeJS 工程师</li>
+      <li id="job-btn" class="job-detail">产品设计师</li>
+      <li id="job-btn" class="job-detail">产品经理</li>
+      <li id="job-btn" class="job-detail">交互设计师</li>
+      <li id="job-btn" class="job-detail">前端工程师</li>
+      <li id="job-btn" class="job-detail">NodeJS 工程师</li>
+      <li id="job-btn" class="job-detail">产品设计师</li>
+      <li id="job-btn" class="job-detail">产品经理</li>
+      <li id="job-btn" class="job-detail">交互设计师</li>
+    </ul>
+
+    <h3 class="jobs-category-title">开发</h3>
+    <ul class="jobs-category-list center-block">
+      <li id="job-btn" class="job-detail">前端工程师</li>
+      <li id="job-btn" class="job-detail">NodeJS 工程师</li>
+      <li id="job-btn" class="job-detail">产品设计师</li>
+      <li id="job-btn" class="job-detail">产品经理</li>
+      <li id="job-btn" class="job-detail">交互设计师</li>
+    </ul>
+
+  </div>
+  <div id="job-detail">
+    <h3 class="job-detail-title">前端工程师</h3>
+    <div id="close" class="close"></div>
+    <div class="job-detail-content">
+      <h4>工作地点</h4>
+      <p class="work-address">珠海</p>
+
+      <h4>任职资格</h4>
+      <ul class="job-demand">
+        <li>认同 Bigertech 理念，愿意为构建大而美的信息流动机制而长期工作</li>
+        <li>在产品、交互、视觉三方面的其中之一，有深入的理解</li>
+        <li>能够主导完整产品或独立模块、功能的设计和迭代</li>
+      </ul>
+
+      <h4>简历投递</h4>
+      <p class="cv-post">申请职位请发送简历至 Bigertech@Foxmail.com, 邮件标题注明职位 + 姓名</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer clearfix">
+  <p class="footer-info">BIGERTECH ALL RIGH RESERVE</p>
+</div>
+
+<script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
+<script src="{{asset 'javascripts/bigertech-jobs.min.js'}}"></script>
+<script>
+  $(document).ready(function(){
+    $('.carousel').carousel();
+  });
+</script>
+</body>
+</html>
