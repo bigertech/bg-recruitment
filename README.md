@@ -12,6 +12,9 @@
 // 安装依赖
 npm install
 
+// 运行项目
+node index.js
+
 // 初始化数据库
 node database.js --install
 
