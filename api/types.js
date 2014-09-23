@@ -18,6 +18,45 @@ var types = {
         });
     },
 
+    getWithJobs: function(options) {
+        var all = [];
+        var types = [];
+
+        return this.findAll().then(function(t) {
+            types = t;
+            types.forEach(function(type, index) {
+                types[index].jobs = [];
+                all.push(models.Job.where({type_id: type.id}).fetchAll());
+            });
+
+            return when.all(all);
+        }).then(function(jobs) {
+            var items = [];
+
+            jobs.forEach(function(job) {
+                job.forEach(function(item) {
+                    items.push(item);
+                });
+            });
+
+            return items;
+        }).then(function(jobs) {
+            jobs.forEach(function(job) {
+                job = job.toJSON();
+
+                types.forEach(function(type, i) {
+                    console.log(type.id, job.type_id);
+                    if (type.id == job.type_id) {
+                        types[i].jobs.push(job);
+                        return ;
+                    }
+                });
+            });
+
+            return types;
+        });
+    },
+
     findById: function(id) {
         return models.Type.findOne({id: id}).then(function(type) {
             if (type) {

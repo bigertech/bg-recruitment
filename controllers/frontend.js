@@ -3,26 +3,23 @@
  * Main controller for frontend
  */
 
-var errors = require('../errors');
-var config = require('../config');
+var api = require('../api');
 
 var frontendControllers;
 
 frontendControllers = {
 
     index: function(req, res, next) {
-        res.render('index', { title: 'Hello World!' });
-    },
+        api.types.getWithJobs().then(function(types) {
+            var data = {
+                title: 'Bigertech',
+                meta_title: 'Let\' it go.',
+                types: types
+            }
 
-    geterror: function(req, res, next) {
-        errors.error404(req, res, next);
-    },
-
-    getconfig: function(req, res, next) {
-        console.log(config());
-        res.jsonp({ name: 'happen' });
+            res.render('index', data);
+        });
     }
-
 };
 
 module.exports = frontendControllers;
