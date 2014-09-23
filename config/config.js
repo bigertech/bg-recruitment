@@ -12,9 +12,9 @@ config = {
             connection: {
                 host     : 'localhost',
                 user     : 'root',
-                password : 'happen',
-                database : 'bg_zhaopin',
-                charset  : 'utf8'
+                password : '',
+                database : '',
+                charset  : 'utf8',
             }
         },
 
@@ -24,8 +24,13 @@ config = {
         },
 
         paths: {
-            'static': path.resolve('../', 'public'),
-            'views': path.resolve('../', 'views')
+            static: path.resolve('../', 'public'),
+            views: path.resolve('../', 'views')
+        },
+
+        user: {
+            username: '',
+            password: ''
         }
     },
 
