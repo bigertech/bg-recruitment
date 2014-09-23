@@ -75,24 +75,20 @@
     {{/foreach}}
   </div>
 
-  {{#foreach types}}
-    {{#foreach jobs}}
-  <div class="job-detail" id="detail-{{id}}">
-    <h3 class="job-detail-title">{{name}}</h3>
+  <div class="job-detail" id="detail">
+    <h3 class="job-detail-title" id="detail-name"></h3>
     <div class="close"></div>
     <div class="job-detail-content">
       <h4>工作地点</h4>
-      <p class="work-address">{{address}}</p>
+      <p class="work-address" id="detail-address"></p>
 
       <h4>任职资格</h4>
-      {{{description}}}
+      <div id="detail-desc"></div>
 
       <h4>简历投递</h4>
       <p class="cv-post">申请职位请发送简历至 Bigertech@Foxmail.com, 邮件标题注明职位 + 姓名</p>
     </div>
   </div>
-    {{/foreach}}
-  {{/foreach}}
 </div>
 
 <div class="footer clearfix">
@@ -100,7 +96,9 @@
 </div>
 
 <script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
-<script src="{{asset 'javascripts/bigertech-jobs.min.js'}}"></script>
+<!-- <script src="{{asset 'javascripts/bigertech-jobs.min.js'}}"></script> -->
+<script src="{{asset 'javascripts/carousel.js'}}"></script>
+<script src="{{asset 'javascripts/index.js'}}"></script>
 <script>
   $(document).ready(function(){
     $('.carousel').carousel();

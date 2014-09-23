@@ -45,9 +45,8 @@ var types = {
                 job = job.toJSON();
 
                 types.forEach(function(type, i) {
-                    console.log(type.id, job.type_id);
                     if (type.id == job.type_id) {
-                        types[i].jobs.push(job);
+                        types[i].jobs.push(_.pick(job, ['name', 'id']));
                         return ;
                     }
                 });

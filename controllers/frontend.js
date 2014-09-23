@@ -19,6 +19,14 @@ frontendControllers = {
 
             res.render('index', data);
         });
+    },
+
+    job: function(req, res, next) {
+        api.jobs.findById(req.params.id).then(function(job) {
+            res.jsonp(job);
+        }).otherwise(function(err) {
+            res.jsonp(null);
+        });
     }
 };
 
