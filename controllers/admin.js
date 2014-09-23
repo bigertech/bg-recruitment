@@ -6,6 +6,7 @@
 var _ = require('lodash');
 
 var api = require('../api');
+var config = require('../config');
 
 var adminControllers;
 
@@ -128,10 +129,39 @@ adminControllers = {
         api.types.deleteById(id).then(function() {
             res.jsonp({ status: true });
         }).otherwise(function(err) {
-            console.log(err);
             res.jsonp({ status: false });
         });
     },
+
+    login: function(req, res, next) {
+        res.render('admin/login');
+    },
+
+    doLogin: function(req, res, next) {
+        var user = {
+            username: req.body.username,
+            password: req.body.password
+        }
+
+        if (user.username == config().user.username &&
+            user.password == config().user.password) {
+            req.session.user = config().user;
+            res.jsonp({ status: true });
+        } else {
+            res.jsonp({ status: false });
+        }
+    },
+
+    filterLogin: function(req, res, next) {
+        if (!_.isEmpty(req.session) && req.session.user) {
+            if (req.session.user.username == config().user.username &&
+                req.session.user.password == config().user.password) {
+                return next();
+            }
+        }
+
+        res.redirect('/admin/login');
+    }
 };
 
 module.exports = adminControllers;

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>笔戈招聘后台</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="max-age=7200"/>
+  <style>
+    .loginForm input {
+    	width: inherit;
+    	display:  inline-block;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero-unit">
+    <form id="loginForm" class="loginForm">
+      <input type="text" class="form-control" id="username" name="usernmae" placeholder="用户名">
+      <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+      <button id="submit" class="btn btn-primary">登录</button>
+    </form>
+  </div>
+</div>
+
+<script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
+<script>
+$(function() {
+  $('#submit').click(function() {
+    var username = $('#username').val().trim();
+    var password = $('#password').val().trim();
+
+    $.post('/admin/doLogin/', { username: username, password: password }, function(data) {
+      if (data.status) {
+        window.location = '/admin/';
+      } else {
+        alert('用户名或密码错误！');
+      }
+    });
+
+    return false;
+  });
+});
+</script>
+
+</body>
+</html>
