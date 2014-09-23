@@ -150,17 +150,6 @@ adminControllers = {
         } else {
             res.jsonp({ status: false });
         }
-    },
-
-    filterLogin: function(req, res, next) {
-        if (!_.isEmpty(req.session) && req.session.user) {
-            if (req.session.user.username == config().user.username &&
-                req.session.user.password == config().user.password) {
-                return next();
-            }
-        }
-
-        res.redirect('/admin/login');
     }
 };
 

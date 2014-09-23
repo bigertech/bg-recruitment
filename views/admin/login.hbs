@@ -32,7 +32,7 @@ $(function() {
     var username = $('#username').val().trim();
     var password = $('#password').val().trim();
 
-    $.post('/admin/doLogin/', { username: username, password: password }, function(data) {
+    $.post('/doLogin/', { username: username, password: password }, function(data) {
       if (data.status) {
         window.location = '/admin/';
       } else {

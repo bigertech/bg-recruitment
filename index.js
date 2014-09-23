@@ -9,6 +9,7 @@ var crypto = require('crypto');
 var express = require('express');
 var hbs = require('express-hbs');
 var log4js = require('log4js');
+var _ = require('lodash');
 
 // config
 var config = require('./config');
@@ -74,6 +75,18 @@ var assetHash = (crypto.createHash('md5')
                        .digest('hex'))
                        .substring(0, 10);
 helpers.loadCoreHelpers(null, assetHash);
+
+// filter login
+app.use('/admin', function(req,res,next) {
+    if (!_.isEmpty(req.session) && req.session.user) {
+        if (req.session.user.username == config().user.username &&
+            req.session.user.password == config().user.password) {
+            return next();
+        }
+    }
+
+    res.redirect('/login');
+});
 
 // handle routes
 routes.frontend(app);
