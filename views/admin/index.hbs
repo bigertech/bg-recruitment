@@ -43,19 +43,21 @@
 
   <div class="hero-unit">
 
-    <form id="searchForm" class="searchForm">
-      <input type="email" class="form-control" id="" placeholder="职位名称">
-      <select id="name" class="form-control">
-        <option >请选择职位类别</option>
-        <option value=1>开发</option>
-        <option value=2>设计</option>
+    <form id="searchForm" class="searchForm" method="GET">
+      <input type="text" class="form-control" name="name" value="{{query.name}}" placeholder="职位名称">
+      <select class="form-control" name="type_id">
+        <option value="0">请选择职位类别</option>
+        {{#foreach types}}
+        <option value="{{id}}" {{#ifCond id ../query.type_id}}selected{{/ifCond}} >{{name}}</option>
+        {{/foreach}}
       </select>
-      <select id="address" class="form-control">
-        <option >请选择工作地点</option>
-        <option value=1>珠海</option>
-        <option value=2>深圳</option>
+      <select name="address" class="form-control">
+        <option value='0'>请选择工作地点</option>
+        <option value='珠海' {{#ifCond '珠海' query.address}}selected{{/ifCond}}>珠海</option>
+        <option value='深圳' {{#ifCond '深圳' query.address}}selected{{/ifCond}}>深圳</option>
+        <option value='北京' {{#ifCond '北京' query.address}}selected{{/ifCond}}>北京</option>
       </select>
-      <button type="submit" class="btn btn-primary">搜索</button>
+      <button type="submit" class="btn btn-primary" id="search">搜索</button>
     </form>
     <a href="/admin/add_job/" class="btn btn-primary add-job">添加职位</a>
 

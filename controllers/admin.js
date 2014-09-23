@@ -3,6 +3,8 @@
  * Main controller for frontend
  */
 
+var _ = require('lodash');
+
 var api = require('../api');
 
 var adminControllers;
@@ -10,8 +12,22 @@ var adminControllers;
 adminControllers = {
 
     index: function(req, res, next) {
-        api.jobs.findAll().then(function(jobs) {
-            res.render('admin/index', { jobs: jobs });
+        var jobs = null;
+        var where = {};
+
+        _.forOwn(req.query, function(val, key) {
+            console.log(key, val);
+            if (!_.isEmpty(val)) {
+                where[key] = val;
+            }
+        });
+
+        api.jobs.findByWhere(where).then(function(j) {
+            jobs = j;
+
+            return api.types.findAll();
+        }).then(function(types) {
+            res.render('admin/index', { jobs: jobs, types: types, query: req.query });
         });
     },
 
