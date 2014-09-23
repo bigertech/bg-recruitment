@@ -81,7 +81,6 @@ var db = {
             nullable: false,
             primary: true
         },
-
         uuid: {
             type: 'string',
             maxlength: 36,
@@ -98,7 +97,6 @@ var db = {
                 }
             }
         },
-
         name: {
             type: 'string',
             maxlength: 128,
@@ -109,6 +107,36 @@ var db = {
                     errorInfo: 'Name must not be empty.',
                 }
             }
+        }
+    },
+
+    member: {
+        id: {
+            type: 'increments',
+            nullable: false,
+            primary: true
+        },
+        name: {
+            type: 'string',
+            maxlength: 128,
+            nullable: false,
+            validations: {
+                'isEmpty': {
+                    condition: false,
+                    errorInfo: 'Name must not be empty.',
+                }
+            }
+        },
+        title: {
+            type: 'string',
+            maxlength: 128,
+            nullable: true,
+        },
+        maxim: {
+            type: 'text',
+            maxlength: 16777215,
+            fieldtype: 'mediumtext',
+            nullable: true
         }
     }
 };
