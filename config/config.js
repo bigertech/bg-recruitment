@@ -12,7 +12,7 @@ config = {
             connection: {
                 host     : 'localhost',
                 user     : 'root',
-                password : 'happen',
+                password : 'root',
                 database : 'bg_zhaopin',
                 charset  : 'utf8'
             }
