@@ -38,6 +38,10 @@ adminRoutes = function (app) {
     app.get('/admin/add_member', admin.addMember);
 
     app.post('/admin/create_member', admin.createMember);
+
+    app.get('/admin/edit_member/:id', admin.editMember);
+
+    app.post('/admin/update_member', admin.updateMember);
 };
 
 module.exports = adminRoutes;

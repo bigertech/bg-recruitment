@@ -17,15 +17,15 @@ var members = {
         });
     },
 
-    // findById: function(id) {
-    //     return models.Type.findOne({id: id}).then(function(type) {
-    //         if (type) {
-    //             return type;
-    //         }
+    findById: function(id) {
+        return models.Member.findOne({id: id}).then(function(member) {
+            if (member) {
+                return member;
+            }
 
-    //         return when.reject(new errors.NotFoundError('Type not found.'));
-    //     });
-    // },
+            return when.reject(new errors.NotFoundError('Member not found.'));
+        });
+    },
 
     add: function(data, options) {
         return models.Member.add(data, options).then(function(member) {
@@ -37,15 +37,15 @@ var members = {
         });
     },
 
-    // updateById: function(data, id) {
-    //     return models.Type.edit(data, {id: id}).then(function(type) {
-    //         if (type) {
-    //             return type.toJSON();
-    //         }
+    updateById: function(data, id) {
+        return models.Member.edit(data, {id: id}).then(function(member) {
+            if (member) {
+                return member.toJSON();
+            }
 
-    //         return when.reject(new errors.NotFoundError('Type not found.'));
-    //     });
-    // },
+            return when.reject(new errors.NotFoundError('Member not found.'));
+        });
+    },
 
     // deleteById: function(id) {
     //     return models.Type.destroy({id: id}).then(function() {
