@@ -32,41 +32,27 @@ function openNew() {
     var sWidth = document.body.scrollWidth;
     var sHeight = document.body.scrollHeight;
 
-    var oMask = document.createElement("div");
-        oMask.id = "mask";
-        oMask.style.height = sHeight+"px";
-        oMask.style.width = sWidth+"px";
-        document.body.appendChild(oMask);
+    var oDetailWrapper = document.getElementById("job-detail-wrapper");
+        oDetailWrapper.style.display = "block";
 
-    var oDetail = document.getElementById('detail');
-        oDetail.style.display = "block";
-
-    //获取页面的可视区域高度
-    var wWidth = document.documentElement.clientWidth;
-    var wHeight = document.documentElement.clientHeight;
-    //获取工作详情的宽和高
-      var dHeight = oDetail.offsetHeight;
-      var dWidth = oDetail.offsetWidth;
-      //设置工作详情的left和top
-      oDetail.style.left = wWidth / 2 - dWidth / 2 + "px";
-      oDetail.style.top  = wHeight / 2 - dHeight / 2 + "px";
-
-
+    var oMaskBackground = document.createElement("div");
+        oMaskBackground.id = "maskBackground";
+        document.body.appendChild(oMaskBackground);
 
     //点击关闭按钮
-    var oClose = document.getElementsByClassName("close");
+    var oClose = $(".close");
 
     //点击工作详情以外的区域也可以关闭登陆框
     for ( var j = 0; j < oClose.length; j++) {
-      oClose[j].onclick = oMask.onclick = function() {
-        oDetail.style.display = "none";
-        document.body.removeChild(oMask);
+      oClose[j].onclick = oMaskBackground.onclick = function() {
+        oDetailWrapper.style.display = "none";
+        document.body.removeChild(oMaskBackground);
       };
     }
 }
 
 window.onload = function() {
-  var oBtn = document.getElementsByClassName("job-name");
+  var oBtn = $(".job-name");
 
   //点击查看工作详情
   for ( var i = 0; i < oBtn.length; i++) {
