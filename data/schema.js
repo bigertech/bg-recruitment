@@ -137,6 +137,12 @@ var db = {
             maxlength: 16777215,
             fieldtype: 'mediumtext',
             nullable: true
+        },
+        img: {
+            type: 'text',
+            maxlength: 16777215,
+            fieldtype: 'mediumtext',
+            nullable: true
         }
     }
 };

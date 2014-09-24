@@ -21,7 +21,8 @@
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -32,9 +33,9 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/admin/">职位管理</a></li>
-          <li class="active"><a href="#">类别管理</a></li>
-          <li><a href="/admin/member/">成员管理</a></li>
+          <li><a href="#">职位管理</a></li>
+          <li><a href="/admin/type/">类别管理</a></li>
+          <li class="active"><a href="/admin/member/">成员管理</a></li>
         </ul>
       </div>
     </div>
@@ -43,25 +44,27 @@
 
   <div class="hero-unit">
 
-    <form id="searchForm" class="searchForm">
-      <label>类别列表</label>
+    <form id="searchForm" class="searchForm" method="GET">
+      <p>成员列表</p>
     </form>
-    <a href="/admin/add_type/" class="btn btn-primary add-job">添加类别</a>
+    <a href="/admin/add_job/" class="btn btn-primary add-job">添加成员</a>
 
     <table class="table">
       <thead>
       <tr>
         <th>#</th>
-        <th>类型名称</th>
+        <th>姓名</th>
+        <th>箴言</th>
         <th>操作</th>
       </tr>
       </thead>
       <tbody>
-      {{#foreach types}}
+      {{#foreach members}}
       <tr>
         <td>{{id}}</td>
         <td>{{name}}</td>
-        <td><a href="/admin/edit_type/{{id}}">编辑</a>|<a href="#" class="del" url="/admin/delete_type/{{id}}">删除</a></td>
+        <td>{{maxim}}</td>
+        <td><a href="/admin/edit_member/{{id}}">编辑</a>|<a href="#" url="/admin/delete_member/{{id}}" class="del">删除</a></td>
       </tr>
       {{/foreach}}
       </tbody>
@@ -75,17 +78,17 @@
 
 $(function() {
     $('.del').click(function() {
-        if (!confirm('是否确认删除改类型？')) {
+        if (!confirm('是否确认删除改职位？')) {
             return false;
         }
 
         var url = $(this).attr('url');
         $.get(url, function(data) {
           if (data.status) {
-              alert('「删除类型」成功！');
-                  window.location.href = '/admin/type';
+              alert('「删除职位」成功！');
+                  window.location.href = '/admin/';
               } else {
-                  alert('「删除类型」失败！');
+                  alert('「删除职位」失败！');
               }
         });
     });

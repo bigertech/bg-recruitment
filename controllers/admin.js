@@ -133,6 +133,12 @@ adminControllers = {
         });
     },
 
+    member: function(req, res, next) {
+        api.members.findAll().then(function(members) {
+            res.render('admin/member', { members: members });
+        });
+    },
+
     login: function(req, res, next) {
         res.render('admin/login');
     },
