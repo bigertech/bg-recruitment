@@ -27,40 +27,35 @@
   <a class="jobs-all center-block" href="#jobs-content">加  入  笔  戈</a>
 </div>
 
-<div id="bgCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-    <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-  </ol>
+<div class="carousel">
 
-  <div class="carousel-inner">
-    <div class="item">
+  <ul class="carousel-inner">
+    <li class="item">
       <div class="quote-container">
         <img class="quote-avater left clearfix" src="{{asset 'assets/dist/images/linan.jpg'}}" alt="First slide">
         <p class="quote-description left clearfix">"笔戈科技提供了一个产生，分享和传播知识的工具，我们鼓励每个人都来分享知识，将每个人的知识都聚集起来，并为人人所用。"</p>
         <h3 class="quote-name"> 李楠 <span class="quote-name-title">魅族高级总监</span></h3>
       </div>
-    </div>
-    <div class="item active">
+    </li>
+    <li class="item active">
       <div class="quote-container">
         <img class="quote-avater left clearfix" src="{{asset 'assets/dist/images/liuxing.jpg'}}" alt="First slide">
         <p class="quote-description left clearfix">"笔戈科技为每个设计师配备了27存的 iMac, 和个人定制鼠标及数位板，以及人体工学座椅，还提供设计过程中需要用到的画笔等各种绘画用品。"</p>
         <h3 class="quote-name"> 刘兴 <span class="quote-name-title">一名放荡不羁的程序员</span></h3>
       </div>
-    </div>
-    <div class="item">
+    </li>
+    <li class="item">
       <div class="quote-container">
         <img class="quote-avater left clearfix" src="{{asset 'assets/dist/images/jason.jpg'}}" alt="First slide">
         <p class="quote-description left clearfix">"笔戈科技是一个年轻、活泼、崇尚黑客文化、鼓励个人发挥创造力、尊重人、沟通畅快、热爱自由的团队。"</p>
         <h3 class="quote-name"> Jason <span class="quote-name-title">居然还能活着的产经</span></h3>
       </div>
-    </div>
+    </li>
 
-  </div>
-  <a class="carousel-control-left" href="#bgCarousel" role="button" data-slide="prev"><div class="arrow-left"></div></a>
-  <a class="carousel-control-right" href="#bgCarousel" role="button" data-slide="next"><div class="arrow-right"></div></a>
+  </ul>
+
+  <a class="carousel-control prev carousel-control-left "><div class="arrow-left"></div></a>
+  <a class="carousel-control next carousel-control-right"><div class="arrow-right"></div></a>
 </div>
 
 <div id="jobs-content" class="jobs-content">
@@ -103,7 +98,21 @@
 <script src="{{asset 'assets/dist/js/bigertech-jobs.min.js'}}"></script>
 <script>
   $(document).ready(function(){
-    $('.carousel').carousel();
+
+		$('.carousel').unslider({
+			arrows: true,
+			fluid: true,
+			dots: true
+		});
+
+    var unslider = $('.carousel').unslider();
+
+    $('.carousel-control').click(function() {
+        var fn = this.className.split(' ')[1];
+
+        //  Either do unslider.data('unslider').next() or .prev() depending on the className
+        unslider.data('unslider')[fn]();
+    });
   });
 </script>
 </body>

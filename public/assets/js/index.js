@@ -44,7 +44,7 @@ function openNew() {
 
     //点击工作详情以外的区域也可以关闭登陆框
     for ( var j = 0; j < oClose.length; j++) {
-      oClose[j].onclick = oMaskBackground.onclick = function() {
+      oClose[j].onclick = oMaskBackground.onclick = oDetailWrapper.onclick = function() {
         oDetailWrapper.style.display = "none";
         document.body.removeChild(oMaskBackground);
       };

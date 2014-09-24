@@ -1,288 +1,250 @@
-/* ========================================================================
- * Bootstrap: transition.js v3.2.0
- * http://getbootstrap.com/javascript/#transitions
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
-  // ============================================================
-
-  function transitionEnd() {
-    var el = document.createElement('bootstrap')
-
-    var transEndEventNames = {
-      WebkitTransition : 'webkitTransitionEnd',
-      MozTransition    : 'transitionend',
-      OTransition      : 'oTransitionEnd otransitionend',
-      transition       : 'transitionend'
-    }
-
-    for (var name in transEndEventNames) {
-      if (el.style[name] !== undefined) {
-        return { end: transEndEventNames[name] }
-      }
-    }
-
-    return false // explicit for ie8 (  ._.)
-  }
-
-  // http://blog.alexmaccaw.com/css-transitions
-  $.fn.emulateTransitionEnd = function (duration) {
-    var called = false
-    var $el = this
-    $(this).one('bsTransitionEnd', function () { called = true })
-    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
-    setTimeout(callback, duration)
-    return this
-  }
-
-  $(function () {
-    $.support.transition = transitionEnd()
-
-    if (!$.support.transition) return
-
-    $.event.special.bsTransitionEnd = {
-      bindType: $.support.transition.end,
-      delegateType: $.support.transition.end,
-      handle: function (e) {
-        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
-      }
-    }
-  })
-
-}(jQuery);
-
-
-
-
-
-
-/* ========================================================================
- * Bootstrap: carousel.js v3.2.0
- * http://getbootstrap.com/javascript/#carousel
- * ========================================================================
- * Copyright 2011-2014 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
-
-+function ($) {
-  'use strict';
-
-  // CAROUSEL CLASS DEFINITION
-  // =========================
-
-  var Carousel = function (element, options) {
-    this.$element    = $(element).on('keydown.bs.carousel', $.proxy(this.keydown, this))
-    this.$indicators = this.$element.find('.carousel-indicators')
-    this.options     = options
-    this.paused      =
-    this.sliding     =
-    this.interval    =
-    this.$active     =
-    this.$items      = null
-
-    this.options.pause == 'hover' && this.$element
-      .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
-      .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
-  }
-
-  Carousel.VERSION  = '3.2.0'
-
-  Carousel.DEFAULTS = {
-    interval: 5000,
-    pause: 'hover',
-    wrap: true
-  }
-
-  Carousel.prototype.keydown = function (e) {
-    switch (e.which) {
-      case 37: this.prev(); break
-      case 39: this.next(); break
-      default: return
-    }
-
-    e.preventDefault()
-  }
-
-  Carousel.prototype.cycle = function (e) {
-    e || (this.paused = false)
-
-    this.interval && clearInterval(this.interval)
-
-    this.options.interval
-      && !this.paused
-      && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
-
-    return this
-  }
-
-  Carousel.prototype.getItemIndex = function (item) {
-    this.$items = item.parent().children('.item')
-    return this.$items.index(item || this.$active)
-  }
-
-  Carousel.prototype.to = function (pos) {
-    var that        = this
-    var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'))
-
-    if (pos > (this.$items.length - 1) || pos < 0) return
-
-    if (this.sliding)       return this.$element.one('slid.bs.carousel', function () { that.to(pos) }) // yes, "slid"
-    if (activeIndex == pos) return this.pause().cycle()
-
-    return this.slide(pos > activeIndex ? 'next' : 'prev', $(this.$items[pos]))
-  }
-
-  Carousel.prototype.pause = function (e) {
-    e || (this.paused = true)
-
-    if (this.$element.find('.next, .prev').length && $.support.transition) {
-      this.$element.trigger($.support.transition.end)
-      this.cycle(true)
-    }
-
-    this.interval = clearInterval(this.interval)
-
-    return this
-  }
-
-  Carousel.prototype.next = function () {
-    if (this.sliding) return
-    return this.slide('next')
-  }
-
-  Carousel.prototype.prev = function () {
-    if (this.sliding) return
-    return this.slide('prev')
-  }
-
-  Carousel.prototype.slide = function (type, next) {
-    var $active   = this.$element.find('.item.active')
-    var $next     = next || $active[type]()
-    var isCycling = this.interval
-    var direction = type == 'next' ? 'left' : 'right'
-    var fallback  = type == 'next' ? 'first' : 'last'
-    var that      = this
-
-    if (!$next.length) {
-      if (!this.options.wrap) return
-      $next = this.$element.find('.item')[fallback]()
-    }
-
-    if ($next.hasClass('active')) return (this.sliding = false)
-
-    var relatedTarget = $next[0]
-    var slideEvent = $.Event('slide.bs.carousel', {
-      relatedTarget: relatedTarget,
-      direction: direction
-    })
-    this.$element.trigger(slideEvent)
-    if (slideEvent.isDefaultPrevented()) return
-
-    this.sliding = true
-
-    isCycling && this.pause()
-
-    if (this.$indicators.length) {
-      this.$indicators.find('.active').removeClass('active')
-      var $nextIndicator = $(this.$indicators.children()[this.getItemIndex($next)])
-      $nextIndicator && $nextIndicator.addClass('active')
-    }
-
-    var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
-    if ($.support.transition && this.$element.hasClass('slide')) {
-      $next.addClass(type)
-      $next[0].offsetWidth // force reflow
-      $active.addClass(direction)
-      $next.addClass(direction)
-      $active
-        .one('bsTransitionEnd', function () {
-          $next.removeClass([type, direction].join(' ')).addClass('active')
-          $active.removeClass(['active', direction].join(' '))
-          that.sliding = false
-          setTimeout(function () {
-            that.$element.trigger(slidEvent)
-          }, 0)
-        })
-        .emulateTransitionEnd($active.css('transition-duration').slice(0, -1) * 1000)
-    } else {
-      $active.removeClass('active')
-      $next.addClass('active')
-      this.sliding = false
-      this.$element.trigger(slidEvent)
-    }
-
-    isCycling && this.cycle()
-
-    return this
-  }
-
-
-  // CAROUSEL PLUGIN DEFINITION
-  // ==========================
-
-  function Plugin(option) {
-    return this.each(function () {
-      var $this   = $(this)
-      var data    = $this.data('bs.carousel')
-      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
-      var action  = typeof option == 'string' ? option : options.slide
-
-      if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
-      if (typeof option == 'number') data.to(option)
-      else if (action) data[action]()
-      else if (options.interval) data.pause().cycle()
-    })
-  }
-
-  var old = $.fn.carousel
-
-  $.fn.carousel             = Plugin
-  $.fn.carousel.Constructor = Carousel
-
-
-  // CAROUSEL NO CONFLICT
-  // ====================
-
-  $.fn.carousel.noConflict = function () {
-    $.fn.carousel = old
-    return this
-  }
-
-
-  // CAROUSEL DATA-API
-  // =================
-
-  $(document).on('click.bs.carousel.data-api', '[data-slide], [data-slide-to]', function (e) {
-    var href
-    var $this   = $(this)
-    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) // strip for ie7
-    if (!$target.hasClass('carousel')) return
-    var options = $.extend({}, $target.data(), $this.data())
-    var slideIndex = $this.attr('data-slide-to')
-    if (slideIndex) options.interval = false
-
-    Plugin.call($target, options)
-
-    if (slideIndex) {
-      $target.data('bs.carousel').to(slideIndex)
-    }
-
-    e.preventDefault()
-  })
-
-  $(window).on('load', function () {
-    $('[data-ride="carousel"]').each(function () {
-      var $carousel = $(this)
-      Plugin.call($carousel, $carousel.data())
-    })
-  })
-
-}(jQuery);
+/**
+ *   Unslider by @idiot and @damirfoy
+ *   Contributors:
+ *   - @ShamoX
+ *
+ */
+
+(function($, f) {
+	var Unslider = function() {
+		//  Object clone
+		var _ = this;
+
+		//  Set some options
+		_.o = {
+			speed: 500,     // animation speed, false for no transition (integer or boolean)
+			delay: 3000,    // delay between slides, false for no autoplay (integer or boolean)
+			init: 0,        // init delay, false for no delay (integer or boolean)
+			pause: !f,      // pause on hover (boolean)
+			loop: !f,       // infinitely looping (boolean)
+			keys: f,        // keyboard shortcuts (boolean)
+			dots: f,        // display dots pagination (boolean)
+			arrows: f,      // display prev/next arrows (boolean)
+			prev: '&larr;', // text or html inside prev button (string)
+			next: '&rarr;', // same as for prev option
+			fluid: f,       // is it a percentage width? (boolean)
+			starting: f,    // invoke before animation (function with argument)
+			complete: f,    // invoke after animation (function with argument)
+			items: '>ul',   // slides container selector
+			item: '>li',    // slidable items selector
+			easing: 'swing',// easing function to use for animation
+			autoplay: true  // enable autoplay on initialisation
+		};
+
+		_.init = function(el, o) {
+			//  Check whether we're passing any options in to Unslider
+			_.o = $.extend(_.o, o);
+
+			_.el = el;
+			_.ul = el.find(_.o.items);
+			_.max = [el.outerWidth() | 0, el.outerHeight() | 0];
+			_.li = _.ul.find(_.o.item).each(function(index) {
+				var me = $(this),
+					width = me.outerWidth(),
+					height = me.outerHeight();
+
+				//  Set the max values
+				if (width > _.max[0]) _.max[0] = width;
+				if (height > _.max[1]) _.max[1] = height;
+			});
+
+
+			//  Cached vars
+			var o = _.o,
+				ul = _.ul,
+				li = _.li,
+				len = li.length;
+
+			//  Current indeed
+			_.i = 0;
+
+			//  Set the main element
+			el.css({width: _.max[0], height: li.first().outerHeight(), overflow: 'hidden'});
+
+			//  Set the relative widths
+			ul.css({position: 'relative', left: 0, width: (len * 100) + '%'});
+			if(o.fluid) {
+				li.css({'float': 'left', width: (100 / len) + '%'});
+			} else {
+				li.css({'float': 'left', width: (_.max[0]) + 'px'});
+			}
+
+			//  Autoslide
+			o.autoplay && setTimeout(function() {
+				if (o.delay | 0) {
+					_.play();
+
+					if (o.pause) {
+						el.on('mouseover mouseout', function(e) {
+							_.stop();
+							e.type == 'mouseout' && _.play();
+						});
+					};
+				};
+			}, o.init | 0);
+
+			//  Keypresses
+			if (o.keys) {
+				$(document).keydown(function(e) {
+					var key = e.which;
+
+					if (key == 37)
+						_.prev(); // Left
+					else if (key == 39)
+						_.next(); // Right
+					else if (key == 27)
+						_.stop(); // Esc
+				});
+			};
+
+			//  Dot pagination
+			o.dots && nav('dot');
+
+			//  Arrows support
+			o.arrows && nav('arrow');
+
+			//  Patch for fluid-width sliders. Screw those guys.
+			if (o.fluid) {
+				$(window).resize(function() {
+					_.r && clearTimeout(_.r);
+
+					_.r = setTimeout(function() {
+						var styl = {height: li.eq(_.i).outerHeight()},
+							width = el.outerWidth();
+
+						ul.css(styl);
+						styl['width'] = Math.min(Math.round((width / el.parent().width()) * 100), 100) + '%';
+						el.css(styl);
+						li.css({ width: width + 'px' });
+					}, 50);
+				}).resize();
+			};
+
+			//  Move support
+			if ($.event.special['move'] || $.Event('move')) {
+				el.on('movestart', function(e) {
+					if ((e.distX > e.distY && e.distX < -e.distY) || (e.distX < e.distY && e.distX > -e.distY)) {
+						e.preventDefault();
+					}else{
+						el.data("left", _.ul.offset().left / el.width() * 100);
+					}
+				}).on('move', function(e) {
+					var left = 100 * e.distX / el.width();
+				        var leftDelta = 100 * e.deltaX / el.width();
+					_.ul[0].style.left = parseInt(_.ul[0].style.left.replace("%", ""))+leftDelta+"%";
+
+					_.ul.data("left", left);
+				}).on('moveend', function(e) {
+					var left = _.ul.data("left");
+					if (Math.abs(left) > 30){
+						var i = left > 0 ? _.i-1 : _.i+1;
+						if (i < 0 || i >= len) i = _.i;
+						_.to(i);
+					}else{
+						_.to(_.i);
+					}
+				});
+			};
+
+			return _;
+		};
+
+		//  Move Unslider to a slide index
+		_.to = function(index, callback) {
+			if (_.t) {
+				_.stop();
+				_.play();
+	                }
+			var o = _.o,
+				el = _.el,
+				ul = _.ul,
+				li = _.li,
+				current = _.i,
+				target = li.eq(index);
+
+			$.isFunction(o.starting) && !callback && o.starting(el, li.eq(current));
+
+			//  To slide or not to slide
+			if ((!target.length || index < 0) && o.loop == f) return;
+
+			//  Check if it's out of bounds
+			if (!target.length) index = 0;
+			if (index < 0) index = li.length - 1;
+			target = li.eq(index);
+
+			var speed = callback ? 5 : o.speed | 0,
+				easing = o.easing,
+				obj = {height: target.outerHeight()};
+
+			if (!ul.queue('fx').length) {
+				//  Handle those pesky dots
+				el.find('.dot').eq(index).addClass('active').siblings().removeClass('active');
+
+				el.animate(obj, speed, easing) && ul.animate($.extend({left: '-' + index + '00%'}, obj), speed, easing, function(data) {
+					_.i = index;
+
+					$.isFunction(o.complete) && !callback && o.complete(el, target);
+				});
+			};
+		};
+
+		//  Autoplay functionality
+		_.play = function() {
+			_.t = setInterval(function() {
+				_.to(_.i + 1);
+			}, _.o.delay | 0);
+		};
+
+		//  Stop autoplay
+		_.stop = function() {
+			_.t = clearInterval(_.t);
+			return _;
+		};
+
+		//  Move to previous/next slide
+		_.next = function() {
+			return _.stop().to(_.i + 1);
+		};
+
+		_.prev = function() {
+			return _.stop().to(_.i - 1);
+		};
+
+		//  Create dots and arrows
+		function nav(name, html) {
+			if (name == 'dot') {
+				html = '<ol class="dots">';
+					$.each(_.li, function(index) {
+						html += '<li class="' + (index == _.i ? name + ' active' : name) + '">' + ++index + '</li>';
+					});
+				html += '</ol>';
+			} else {
+				html = '<div class="';
+				html = html + name + 's">' + html + name + ' prev">' + _.o.prev + '</div>' + html + name + ' next">' + _.o.next + '</div></div>';
+			};
+
+			_.el.addClass('has-' + name + 's').append(html).find('.' + name).click(function() {
+				var me = $(this);
+				me.hasClass('dot') ? _.stop().to(me.index()) : me.hasClass('prev') ? _.prev() : _.next();
+			});
+		};
+	};
+
+	//  Create a jQuery plugin
+	$.fn.unslider = function(o) {
+		var len = this.length;
+
+		//  Enable multiple-slider support
+		return this.each(function(index) {
+			//  Cache a copy of $(this), so it
+			var me = $(this),
+				key = 'unslider' + (len > 1 ? '-' + ++index : ''),
+				instance = (new Unslider).init(me, o);
+
+			//  Invoke an Unslider instance
+			me.data(key, instance).data('key', key);
+		});
+	};
+
+	Unslider.version = "1.0.0";
+})(jQuery, false);

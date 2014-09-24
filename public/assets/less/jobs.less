@@ -69,56 +69,48 @@ body {
 //----------------------------------------------------------
 .carousel {
   position: relative;
-  height: auto;
+  overflow: auto;
   background-color: #f5f5f5;
   .carousel-inner {
-    overflow: hidden;
     width: 100%;
-
-    > .item {
-      position: relative;
-      display: none;
-      width: 100%;
+    list-style: none;
+    .item {
+      float: left;
       height: 274px;
-      -webkit-transition: .4s linear left;
-         -moz-transition: .4s linear left;
-           -o-transition: .4s linear left;
-              transition: .4s linear left;
     }
+  }
+  .dots {
+    position: absolute;
+		left: 50%;
+    margin-left: -35px;
+		bottom: 40px;
+		width: 100%;
+    li {
+      display: inline-block;
+			*display: inline;
+			zoom: 1;
 
-    > .active,
-    > .next,
-    > .prev {
-      display: block;
-    }
+			width: 10px;
+			height: 10px;
+			line-height: 10px;
+			margin: 0 5px;
 
-    > .active {
-      left: 0;
-    }
+			text-indent: -999em;
+			*text-indent: 0;
 
-    > .next,
-    > .prev {
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
+			background-color: #b7b7b7;
+			border-radius: 50%;
 
-    > .next {
-      left: 100%;
-    }
-    > .prev {
-      left: -100%;
-    }
-    > .next.left,
-    > .prev.right {
-      left: 0;
-    }
+			cursor: pointer;
+			opacity: .4;
 
-    > .active.left {
-      left: -100%;
-    }
-    > .active.right {
-      left: 100%;
+			-webkit-transition: background .5s, opacity .5s;
+			-moz-transition: background .5s, opacity .5s;
+			transition: background .5s, opacity .5s;
+      &:active, &:hover {
+        background-color: #797979;
+				opacity: 1;
+      }
     }
   }
 }
@@ -127,37 +119,13 @@ body {
   position: absolute;
   top: 104px;
   left: 56px;
+  cursor: pointer;
 }
 .carousel-control-right {
   position: absolute;
   top: 104px;
   right: 56px;
-}
-
-.carousel-indicators {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  z-index: 15;
-  width: 60%;
-  padding-left: 0;
-  margin-left: -30%;
-  text-align: center;
-  list-style: none;
-  li {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 10px;
-    text-indent: -999px;
-    cursor: pointer;
-    background-color: #000 \9;
-    background-color: #b7b7b7;
-    border-radius: 10px;
-  }
-  .active {
-    background-color: #797979;
-  }
+  cursor: pointer;
 }
 
 .quote-container {
@@ -196,11 +164,11 @@ body {
 
 @media screen and (max-width: 768px) {
   .carousel-inner {
-    > .item {
+    .item {
       height: 170px !important;
     }
   }
-  .carousel-indicators {
+  .dots {
     display: none;
   }
 
@@ -286,7 +254,7 @@ body {
         }
       }
       > li + li {
-        margin-right: 0px;
+        margin-right: 0px; // hack for ie8
       }
     }
   }
@@ -499,6 +467,23 @@ body {
   }
 }
 @keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+.job-detail {
+  -webkit-animation: fade-in-down 0.9s;
+}
+
+@-webkit-keyframes fade-in-down {
   0% {
     opacity: 0;
     -webkit-transform: translateY(-10px);
