@@ -204,6 +204,17 @@ adminControllers = {
         }
     },
 
+    deleteMember: function(req, res, next) {
+        var id = req.params.id;
+
+        api.members.deleteById(id).then(function() {
+            res.jsonp({ status: true });
+        }).otherwise(function(err) {
+            console.log(err);
+            res.jsonp({ status: false });
+        });
+    },
+
     login: function(req, res, next) {
         res.render('admin/login');
     },

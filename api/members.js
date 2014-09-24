@@ -1,9 +1,12 @@
 
+var fs = require('fs');
+
 var when = require('when');
 var _ = require('lodash');
 
 var models = require('../models');
 var errors = require('../errors');
+var config = require('../config');
 
 var members = {
 
@@ -47,11 +50,31 @@ var members = {
         });
     },
 
-    // deleteById: function(id) {
-    //     return models.Type.destroy({id: id}).then(function() {
-    //         return models.Job.where({type_id: id}).destroy();
-    //     });
-    // }
+    deleteById: function(id) {
+        return this.findById(id).then(function(member) {
+            if (member) {
+                return models.Member.destroy({id: id}).then(function() {
+                    if (!_.isEmpty(member.img)) {
+                        return unlink(config().paths.upload + '/' + member.img);
+                    }
+                });
+            }
+        });
+    }
 };
+
+function unlink(path) {
+    var deferred = when.defer();
+
+    fs.unlink(path, function(err) {
+        if (err) {
+            return deferred.reject(err);
+        }
+
+        return deferred.resolve();
+    });
+
+    return deferred.promise;
+}
 
 module.exports = members;

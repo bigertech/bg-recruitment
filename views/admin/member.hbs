@@ -80,17 +80,17 @@
 
 $(function() {
     $('.del').click(function() {
-        if (!confirm('是否确认删除改职位？')) {
+        if (!confirm('是否确认删除该「成员信息」？')) {
             return false;
         }
 
         var url = $(this).attr('url');
         $.get(url, function(data) {
           if (data.status) {
-              alert('「删除职位」成功！');
-                  window.location.href = '/admin/';
+              alert('「删除成员信息」成功！');
+                  window.location.href = '/admin/member';
               } else {
-                  alert('「删除职位」失败！');
+                  alert('「删除成员信息」失败！');
               }
         });
     });
