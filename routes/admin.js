@@ -34,6 +34,10 @@ adminRoutes = function (app) {
     app.get('/admin/delete_type/:id', admin.deleteType);
 
     app.get('/admin/member', admin.member);
+
+    app.get('/admin/add_member', admin.addMember);
+
+    app.post('/admin/create_member', admin.createMember);
 };
 
 module.exports = adminRoutes;

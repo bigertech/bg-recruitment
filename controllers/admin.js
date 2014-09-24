@@ -4,6 +4,9 @@
  */
 
 var _ = require('lodash');
+var fs = require('fs');
+var when = require('when');
+var uuid = require('node-uuid');
 
 var api = require('../api');
 var config = require('../config');
@@ -139,6 +142,36 @@ adminControllers = {
         });
     },
 
+    addMember: function(req, res, next) {
+        res.render('admin/add_member');
+    },
+
+    createMember: function(req, res, next) {
+        var member = req.body;
+
+        if (!_.isEmpty(req.files.img.name)) {
+            console.log(req.files.img);
+            var img = req.files.img;
+            var target = new Date().getTime() + img.name.substr(img.name.lastIndexOf('.'));
+
+            move(img.path, config().paths.upload + '/' + target).then(function() {
+                member.img = target;
+
+                return api.members.add(member);
+            }).then(function() {
+                res.redirect('/admin/member');
+            }).otherwise(function(err) {
+                res.jsonp({status: false});
+            });
+        } else {
+            return api.members.add(member).then(function() {
+                res.redirect('/admin/member');
+            }).otherwise(function() {
+                res.jsonp({status: false});
+            });
+        }
+    },
+
     login: function(req, res, next) {
         res.render('admin/login');
     },
@@ -156,7 +189,21 @@ adminControllers = {
         } else {
             res.jsonp({ status: false });
         }
-    }
+    },
+};
+
+function move(src, dest) {
+    var deferred = when.defer();
+
+    fs.rename(src, dest, function(err) {
+        if (err) {
+            return deferred.reject(err);
+        }
+
+        return deferred.resolve();
+    });
+
+    return deferred.promise;
 };
 
 module.exports = adminControllers;

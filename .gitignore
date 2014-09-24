@@ -15,6 +15,7 @@ node_modules
 npm-debug.log
 build
 example
+public/uploads
 
 .idea
 *.iml
