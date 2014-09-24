@@ -19,7 +19,7 @@ var Member = baseBookshelf.Model.extend({
 
     findOne: function(data, options) {
         return baseBookshelf.Model.findOne.call(this, data, options).then(function(result) {
-            if (!_.isEmpty) {
+            if (!_.isEmpty(result)) {
                 return result.toJSON();
             }
         });
@@ -29,6 +29,7 @@ var Member = baseBookshelf.Model.extend({
         var self = this;
 
         return baseBookshelf.Model.add.call(this, data, options).then(function (member) {
+            member = member.toJSON();
             return self.findOne({id: member.id}, options);
         });
     },

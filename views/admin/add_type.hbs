@@ -40,7 +40,7 @@
 
         $.post('/admin/create_type/', type, function(data) {
             if (data.status) {
-                alert('「添加类别」成功！');
+                // alert('「添加类别」成功！');
                 window.location.href = '/admin/type';
             } else {
                 alert('「添加类别」失败！');
