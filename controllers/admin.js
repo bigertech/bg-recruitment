@@ -235,7 +235,7 @@ adminControllers = {
         } else {
             res.jsonp({ status: false });
         }
-    },
+    }
 };
 
 function move(src, dest) {
