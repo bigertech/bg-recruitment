@@ -4,7 +4,26 @@
 
 ## 配置 ##
 
+### 数据库 ###
+
 先修改`/config/config.js`中的数据库配置。
+
+### 用户 ###
+
+```
+user: {
+    username: 'username',
+    password: 'password'
+}
+```
+
+### 幻灯片数量 ###
+
+```
+flash: {
+    number: 4
+}
+```
 
 ## 运行 ##
 
@@ -20,4 +39,12 @@ node database.js --install
 
 // 访问后台
 localhost:port/admin/
+```
+
+## 其他 ##
+
+### 重置数据 ###
+
+```
+node database.js --reset
 ```
