@@ -9,7 +9,7 @@
   <title>{{meta_title}}</title>
   <meta name="description" content="{{meta_description}}" />
   <meta name="keywords" content="{{meta_title}}">
-  <link rel="stylesheet" href="{{asset 'assets/dist/css/bigertech-jobs.min.css'}}">
+  <link rel="stylesheet" href="{{asset '/stylesheets/bigertech-jobs.min.css'}}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -23,35 +23,22 @@
 <![endif]-->
 
 <div class="jobs-header">
-  <img class="logo center-block" src="{{asset 'assets/dist/images/bigertech.png'}}" alt="bigertech">
+  <img class="logo center-block" src="{{asset '/images/bigertech.png'}}" alt="bigertech">
   <a class="jobs-all center-block" href="#jobs-content">加  入  笔  戈</a>
 </div>
 
 <div class="carousel">
 
   <ul class="carousel-inner">
+    {{#foreach members}}
     <li class="item">
       <div class="quote-container">
-        <img class="quote-avater left clearfix" src="{{asset 'assets/dist/images/linan.jpg'}}" alt="First slide">
-        <p class="quote-description left clearfix">"笔戈科技提供了一个产生，分享和传播知识的工具，我们鼓励每个人都来分享知识，将每个人的知识都聚集起来，并为人人所用。"</p>
-        <h3 class="quote-name"> 李楠 <span class="quote-name-title">魅族高级总监</span></h3>
+        <img class="quote-avater left clearfix" src="/uploads/{{img}}" alt="First slide">
+        <p class="quote-description left clearfix">"{{maxim}}"</p>
+        <h3 class="quote-name"> {{name}} <span class="quote-name-title">{{title}}</span></h3>
       </div>
     </li>
-    <li class="item active">
-      <div class="quote-container">
-        <img class="quote-avater left clearfix" src="{{asset 'assets/dist/images/liuxing.jpg'}}" alt="First slide">
-        <p class="quote-description left clearfix">"笔戈科技为每个设计师配备了27存的 iMac, 和个人定制鼠标及数位板，以及人体工学座椅，还提供设计过程中需要用到的画笔等各种绘画用品。"</p>
-        <h3 class="quote-name"> 刘兴 <span class="quote-name-title">一名放荡不羁的程序员</span></h3>
-      </div>
-    </li>
-    <li class="item">
-      <div class="quote-container">
-        <img class="quote-avater left clearfix" src="{{asset 'assets/dist/images/jason.jpg'}}" alt="First slide">
-        <p class="quote-description left clearfix">"笔戈科技是一个年轻、活泼、崇尚黑客文化、鼓励个人发挥创造力、尊重人、沟通畅快、热爱自由的团队。"</p>
-        <h3 class="quote-name"> Jason <span class="quote-name-title">居然还能活着的产经</span></h3>
-      </div>
-    </li>
-
+    {{/foreach}}
   </ul>
 
   <a class="carousel-control prev carousel-control-left "><div class="arrow-left"></div></a>
@@ -95,7 +82,7 @@
 </div>
 
 <script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
-<script src="{{asset 'assets/dist/js/bigertech-jobs.min.js'}}"></script>
+<script src="{{asset 'javascripts/bigertech-jobs.min.js'}}"></script>
 <script>
   $(document).ready(function(){
 

@@ -3,18 +3,45 @@
  * Main controller for frontend
  */
 
+var _ = require('lodash');
+
 var api = require('../api');
+var config = require('../config');
 
 var frontendControllers;
 
 frontendControllers = {
 
     index: function(req, res, next) {
-        api.types.getWithJobs().then(function(types) {
+        var types = null;
+
+        api.types.getWithJobs().then(function(t) {
+            types = t;
+            return api.members.findAll();
+        }).then(function(m) {
+            var random = [];
+            var members = [];
+            var len = m.length;
+            var maxLen = config().flash.number;
+
+            if (len > maxLen) {
+                for (; random.length < maxLen;) {
+                    random.push(parseInt(Math.random() * len));
+                    random = _.uniq(random);
+                }
+
+                random.forEach(function(rand) {
+                    members.push(m[rand]);
+                });
+            } else {
+                members = m;
+            }
+
             var data = {
                 title: 'Bigertech',
                 meta_title: 'Let\' it go.',
-                types: types
+                types: types,
+                members: members
             }
 
             res.render('index', data);

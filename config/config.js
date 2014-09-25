@@ -34,6 +34,10 @@ config = {
         user: {
             username: '',
             password: ''
+        },
+
+        flash: {
+            number: 4
         }
     },
 
