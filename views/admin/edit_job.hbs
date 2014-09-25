@@ -27,17 +27,18 @@
         <div class="btn-group">
           <select id="type" class="form-control">
               {{#foreach types}}
-              <option value="{{id}}" {{#ifCond id ../job.type_id}}selected{{/ifCond}}>{{name}}</option>
+                <option value="{{id}}" {{#ifCond id ../job.type_id}}selected{{/ifCond}}>{{name}}</option>
               {{/foreach}}
           </select>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">学历要求</label>
-        <input type="text" class="form-control" id="edu" value="{{job.edu}}" />
+        <input type="text" class="form-control" id="edu" value="{{job.edu}}"/>
       </div>
       <div class="form-group">
         <label class="form-label">工作地点</label>
+
         <div class="btn-group">
           <select id="address" class="form-control">
             <option value='珠海' {{#ifCond '珠海' job.address}}selected{{/ifCond}}>珠海</option>
@@ -46,13 +47,16 @@
           </select>
         </div>
       </div>
-    <hr/>
-    <label>职位描述</label>
-    <input type="hidden" id="description" value="{{{job.description}}}">
-    <input type="hidden" id="job-id" value="{{job.id}}" />
-    <textarea rows="3" id="editor"></textarea>
-    <button id="update-job" class="btn btn-primary form-btn-bar">确定</button>
-    <a href="/admin/" class="btn btn-primary form-btn-bar">返回</a>
+      <hr/>
+      <label>职位描述</label>
+      <input type="hidden" id="description" value="{{{job.description}}}">
+      <input type="hidden" id="job-id" value="{{job.id}}"/>
+
+      <div id="editor">
+        <textarea rows="3"></textarea>
+      </div>
+      <button id="update-job" class="btn btn-primary form-btn-bar">确定</button>
+      <a href="/admin/" class="btn btn-primary form-btn-bar">返回</a>
     </form>
   </div>
 </div>
@@ -65,52 +69,52 @@
     editor.render();
     editor.codemirror.setValue($('#description').val());
 
-    $('#update-job').click(function() {
-        var id = $('#job-id').val().trim();
-        var name = $('#name').val().trim();
-        var number = $('#number').val().trim();
-        var type = $('#type').val().trim();
-        var edu = $('#edu').val().trim();
-        var address = $('#address').val().trim();
-        var description = Editor.markdown(editor.codemirror.getValue());
+    $('#update-job').click(function () {
+      var id = $('#job-id').val().trim();
+      var name = $('#name').val().trim();
+      var number = $('#number').val().trim();
+      var type = $('#type').val().trim();
+      var edu = $('#edu').val().trim();
+      var address = $('#address').val().trim();
+      var description = Editor.markdown(editor.codemirror.getValue());
 
-        if (name == '') {
-            alert('「职位名称」不能为空！');
-            return false;
-        } else if (number < 0) {
-            alert('「职位数量」不能小于0！');
-            return false;
-        } else if (type == '') {
-            alert('「职位类型」不能为空！');
-            return false;
-        } else if (edu == '') {
-            alert('「学历要求」不能为空！');
-            return false;
-        } else if (address == '') {
-            alert('「职位地址」不能为空！');
-            return false;
-        }
-
-        var job = {
-            id: id,
-            name: name,
-            number: number || 0,
-            type_id: type,
-            address: address,
-            description: description,
-            edu: edu
-        };
-
-        $.post('/admin/update_job/', job, function(data) {
-            if (data.status) {
-                // alert('「更新职位」成功！');
-                window.location.href = '/admin/';
-            } else {
-                alert('「更新职位」失败！');
-            }
-        });
-
+      if (name == '') {
+        alert('「职位名称」不能为空！');
         return false;
+      } else if (number < 0) {
+        alert('「职位数量」不能小于0！');
+        return false;
+      } else if (type == '') {
+        alert('「职位类型」不能为空！');
+        return false;
+      } else if (edu == '') {
+        alert('「学历要求」不能为空！');
+        return false;
+      } else if (address == '') {
+        alert('「职位地址」不能为空！');
+        return false;
+      }
+
+      var job = {
+        id: id,
+        name: name,
+        number: number || 0,
+        type_id: type,
+        address: address,
+        description: description,
+        edu: edu
+      };
+
+      $.post('/admin/update_job/', job, function (data) {
+        if (data.status) {
+          // alert('「更新职位」成功！');
+          window.location.href = '/admin/';
+        } else {
+          alert('「更新职位」失败！');
+        }
+      });
+
+      return false;
     });
   });
 </script>
