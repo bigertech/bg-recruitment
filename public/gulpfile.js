@@ -7,7 +7,6 @@ var gulp = require('gulp'),
 		imagemin = require('gulp-imagemin'),
 		cache = require('gulp-cache'),
 		rename = require('gulp-rename'),
-		sourcemaps = require('gulp-sourcemaps'),
 		clean = require('gulp-clean'),
 		notify = require('gulp-notify');
 
@@ -38,11 +37,9 @@ gulp.task('clean', function() {
 // 将 Less 转换成 CSS，以及压缩 CSS
 gulp.task('less', function() {
 	return gulp.src(paths.less)
-	.pipe(sourcemaps.init())
-		.pipe(less())
-		.pipe(cssmin())
-		.pipe(rename('bigertech-jobs.min.css'))
-	.pipe(sourcemaps.write())
+	.pipe(less())
+	.pipe(cssmin())
+	.pipe(rename('bigertech-jobs.min.css'))
 	.pipe(gulp.dest(paths.less_dist))
 	.pipe(notify({ message: 'Less task complete' }));
 });
@@ -51,12 +48,10 @@ gulp.task('less', function() {
 // 验证、合并、压缩 js 文件
 gulp.task('scripts', function() {
 	return gulp.src(paths.scripts)
-	.pipe(sourcemaps.init())
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'))
-		.pipe(concat('bigertech-jobs.min.js'))
-		.pipe(uglify())
-		.pipe(sourcemaps.write())
+	.pipe(jshint())
+	.pipe(jshint.reporter('default'))
+	.pipe(concat('bigertech-jobs.min.js'))
+	.pipe(uglify())
 	.pipe(gulp.dest(paths.scripts_dist))
 	.pipe(notify({ message: 'Scripts task complete' }));
 });
