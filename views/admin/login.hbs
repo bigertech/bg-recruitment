@@ -7,20 +7,27 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Cache-Control" content="max-age=7200"/>
-  <style>
-    .loginForm input {
-    	width: inherit;
-    	display:  inline-block;
-    }
-  </style>
+  <link rel="stylesheet" href="{{asset '/stylesheets/bootstrap.min.css'}}">
+  <link rel="stylesheet" href="{{asset '/stylesheets/bootstrap-responsive.min.css'}}">
+  <link rel="stylesheet" href="{{asset '/stylesheets/bigertech-end-jobs.css'}}">
 </head>
 <body>
-<div class="container">
-  <div class="hero-unit">
-    <form id="loginForm" class="loginForm">
-      <input type="text" class="form-control" id="username" name="usernmae" placeholder="用户名">
-      <input type="password" class="form-control" id="password" name="password" placeholder="密码">
-      <button id="submit" class="btn btn-primary">登录</button>
+
+<div class="login-main">
+  <div class="login-container">
+    <h2>登录</h2>
+
+    <form id="loginForm" role="form">
+      <div class="form-group">
+        <label for="username">Name</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Name">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+      </div>
+      <hr>
+      <button type="submit" id="submit" class="btn btn-primary">登录</button>
     </form>
   </div>
 </div>

@@ -1,3 +1,33 @@
+/*登录*/
+/*body {
+  padding: 0;
+  background: #f8f8f8;
+  color: #474a54;
+}*/
+.login-main {
+  max-width: 440px;
+  margin: 200px auto;
+  border-radius: 2px;
+}
+.login-container {
+  background: #f8f8f8;
+  box-shadow: 0;
+  padding: 20px 40px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+.login-container h2 {
+  text-align: center;
+}
+.add-job-main {
+  max-width: 800px;
+  margin: 0px auto;
+  border-radius: 2px;
+}
+.add-job-container {
+  padding: 50px;
+  background: #fff;
+}
 .hero-unit {
   padding: 60px;
   margin-bottom: 30px;
@@ -5,7 +35,7 @@
   font-weight: 200;
   line-height: 30px;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: #f8f8f8;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -29,8 +59,6 @@
   border-left: 1px solid #eee;
 }
 #editor {
-  max-height: 300px;
-  height: 300px;
   background-color: white;
   border-collapse: separate;
   border: 1px solid #cccccc;
@@ -42,7 +70,6 @@
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
-  overflow: scroll;
   outline: none;
 }
 #voiceBtn {
