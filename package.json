@@ -27,6 +27,7 @@
     "moment": "2.8.1",
     "mysql": "2.1.1",
     "node-uuid": "1.4.1",
+    "to-markdown": "0.0.2",
     "validator": "3.16.1",
     "when": "2.7.0"
   },

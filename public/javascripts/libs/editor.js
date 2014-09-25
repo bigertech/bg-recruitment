@@ -7087,7 +7087,6 @@
     '|',
 
     {name: 'link', action: drawLink},
-    {name: 'image', action: drawImage},
     '|',
 
     {name: 'info', action: 'http://lab.lepture.com/editor/markdown'},

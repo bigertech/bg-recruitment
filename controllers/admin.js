@@ -7,6 +7,7 @@ var _ = require('lodash');
 var fs = require('fs');
 var when = require('when');
 var uuid = require('node-uuid');
+var toMarkdown = require('to-markdown').toMarkdown;
 
 var api = require('../api');
 var config = require('../config');
@@ -56,10 +57,12 @@ adminControllers = {
 
         api.jobs.findById(id).then(function(j) {
             job = j;
+            job.description = toMarkdown(job.description);
             return api.types.findAll();
         }).then(function(types) {
             res.render('admin/edit_job', { job: job, types: types });
         }).otherwise(function(err) {
+            console.log(err);
             res.jsonp({err: 'Page not fount.'});
         });
     },

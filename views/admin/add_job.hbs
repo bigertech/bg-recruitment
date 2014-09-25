@@ -50,9 +50,7 @@
     <hr/>
     <div id="alerts"></div>
     <label>职位描述</label>
-    <div id="editor">
-        <textarea rows="3"></textarea>
-    </div>
+    <textarea rows="3" id="editor"></textarea>
     <button id="create-job" class="btn btn-primary form-btn-bar">确定</button>
     <a href="/admin/" class="btn btn-primary form-btn-bar">返回</a>
     </form>
@@ -65,13 +63,14 @@
   $(function () {
     var editor = new Editor();
     editor.render();
+
     $('#create-job').click(function() {
         var name = $('#name').val().trim();
         var number = $('#number').val().trim();
         var type = $('#type').val().trim();
         var edu = $('#edu').val().trim();
         var address = $('#address').val().trim();
-        var description = $('#editor').html();
+        var description = Editor.markdown(editor.codemirror.getValue());
 
         if (name == '') {
             alert('「职位名称」不能为空！');
@@ -114,6 +113,3 @@
 </script>
 </body>
 </html>
-flash: {
-number: 4
-}
