@@ -26,6 +26,9 @@ adminControllers = {
             }
         });
 
+        parseInt(where['type_id']) ? '' : delete where['type_id'];
+        where['address'] != '0' ? '' : delete where['address'];
+
         api.jobs.findByWhere(where).then(function(j) {
             jobs = j;
 

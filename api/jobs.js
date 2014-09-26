@@ -37,12 +37,12 @@ var jobs = {
 
         var jobs = null;
         return models.Job.query(function(qb) {
-            if (where.name) {
+            if (!_.isEmpty(where.name)) {
                 qb = qb.where('name', 'like', '%' + where.name + '%');
                 delete where.name;
-                qb = qb.orWhere(where);
+                qb = qb.andWhere(where);
             } else {
-                qb = qb.orWhere(where);
+                qb = qb.andWhere(where);
             }
         }).fetchAll().then(function(j) {
             jobs = j;
