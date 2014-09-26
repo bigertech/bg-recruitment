@@ -16,7 +16,6 @@ npm-debug.log
 build
 example
 public/uploads
-config/config.js
 .idea
 *.iml
 .DS_Store
