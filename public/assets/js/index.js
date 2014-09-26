@@ -62,3 +62,21 @@ window.onload = function() {
     }
   }
 }
+
+$(document).ready(function(){
+
+  $('.carousel').unslider({
+    arrows: true,
+    fluid: true,
+    dots: true
+  });
+
+  var unslider = $('.carousel').unslider();
+
+  $('.carousel-control').click(function() {
+      var fn = this.className.split(' ')[1];
+
+      //  Either do unslider.data('unslider').next() or .prev() depending on the className
+      unslider.data('unslider')[fn]();
+  });
+});

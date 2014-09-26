@@ -39,7 +39,7 @@ frontendControllers = {
 
             var data = {
                 title: 'Bigertech',
-                meta_title: 'Let\' it go.',
+                meta_title: '笔戈招聘',
                 types: types,
                 members: members
             }
