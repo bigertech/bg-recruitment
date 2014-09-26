@@ -20,4 +20,3 @@ public/uploads
 *.iml
 .DS_Store
 
-config/config.js
