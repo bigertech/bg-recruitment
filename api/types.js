@@ -10,9 +10,9 @@ var types = {
 
     findAll: function(options) {
         return models.Type.findAll().then(function(types) {
-            types = _.sortBy(types, function(type) {
-                return 1000000 - type.id;
-            });
+            // types = _.sortBy(types, function(type) {
+            //     return 1000000 - type.id;
+            // });
 
             return types;
         });
