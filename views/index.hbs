@@ -84,25 +84,6 @@
 <script src="{{asset 'javascripts/libs/jquery-1.10.2.min.js'}}"></script>
 <script src="{{asset 'assets/dist/js/bigertech-jobs.min.js'}}"></script>
 <script>
-  $(document).ready(function(){
-
-		$('.carousel').unslider({
-			arrows: true,
-			fluid: true,
-			dots: true
-		});
-
-    var unslider = $('.carousel').unslider();
-
-    $('.carousel-control').click(function() {
-        var fn = this.className.split(' ')[1];
-
-        //  Either do unslider.data('unslider').next() or .prev() depending on the className
-        unslider.data('unslider')[fn]();
-    });
-  });
-</script>
-<script>
   var _hmt = _hmt || [];
   (function () {
       var hm = document.createElement("script");
